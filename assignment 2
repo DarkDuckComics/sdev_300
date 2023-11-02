@@ -1,0 +1,153 @@
+"""
+Python program that offers a menu-driven interface for performing various tasks.
+It includes:
+Functions for generating secure passwords
+Calculating and formatting percentages
+Determining the number of days until July 4, 2025
+Calculating the leg of a triangle using the Law of Cosines
+Calculating the volume of a right circular cylinder
+"""
+import secrets
+import string
+import math
+from datetime import datetime
+
+def generates_secure_password(length, use_uppercase, use_lowercase, use_numbers, use_special_chars):
+    """
+    Function to generate a secure password
+    Args
+        length (int): The length of the password.
+        use_uppercase (bool): Include uppercase letters.
+        use_lowercase (bool): Include lowercase letters.
+        use_numbers (bool): Include numbers.
+        use_special_chars (bool): Include special characters.
+    Returns
+        str: The generated secure password.
+    """
+    characters = ""
+    if use_uppercase:
+        characters += string.ascii_uppercase
+    if use_lowercase:
+        characters += string.ascii_lowercase
+    if use_numbers:
+        characters += string.digits
+    if use_special_chars:
+        characters += string.punctuation
+
+    if not characters:
+        print("Please select at least one character type for the password.")
+        return None
+
+    password = ''.join(secrets.choice(characters) for _ in range(length))
+    return password
+
+def calculate_percentage(numer, denom, decimal_point):
+    """
+    Function to calculate and format a percentage
+    Args
+        num (float): The numerator for the percentage calculation.
+        denom (float): The denominator for the percentage calculation.
+        decimal_point (int): The number of decimal points for formatting the percentage.
+    Returns
+        str: The formatted percentage.
+    """
+    if denominator == 0:
+        print("Denominator cannot be zero.")
+        return None
+
+    percentage = (numer / denom) * 100
+    formatted_percentage = f"{percentage:.{decimal_point}f}"
+    return formatted_percentage
+
+def days_until_july_4_2025():
+    """
+    Function to calculate days until July 4, 2025
+    Returns
+        int: The number of days remaining until July 4, 2025.
+    """
+    target_date = datetime(2025, 7, 4)
+    today = datetime.now()
+    num_days_remaining = (target_date - today).days
+    return num_days_remaining
+
+def calculate_triangle_leg(side_a, side_b, angle_c_degrees):
+    """
+    Function to calculate the leg of a triangle using the Law of Cosines
+    Args
+        side_a (float): Length of side a.
+        side_b (float): Length of side b.
+        angle_c_degrees (float): Measure of angle C in degrees.
+    Returns
+        float: Length of side c (the calculated leg of the triangle).
+    """
+    angle_c_radians = math.radians(angle_c_degrees)
+    side_c = math.sqrt(side_a ** 2 + side_b ** 2 - 2 * side_a * side_b * math.cos(angle_c_radians))
+    return side_c
+
+def calculate_cylinder_volume(cylinder_radius, cylinder_height):
+    """
+    Function to calculate the volume of a Right Circular Cylinder
+    Args
+        cylinder_radius (float): Radius of the cylinder.
+        cylinder_height (float): Height of the cylinder.
+    Returns
+        float: The volume of the cylinder in cubic units.
+    """
+    volume = math.pi * cylinder_radius ** 2 * cylinder_height
+    return volume
+
+# Main menu
+while True:
+    print("Menu:")
+    print("A. Generate Secure Password")
+    print("B. Calculate and Format a Percentage")
+    print("C. How many days until July 4, 2025?")
+    print("D. Calculate the leg of a triangle")
+    print("E. Calculate the volume of a Right Circular Cylinder")
+    print("F. Exit program")
+
+    choice = input("Select an option: ").lower()
+
+    if choice == 'a':
+        password_length = int(input("Enter the length of the password: "))
+        use_uppercase_choice = input("Include uppercase letters (y/n): ").lower() == 'y'
+        use_lowercase_choice = input("Include lowercase letters (y/n): ").lower() == 'y'
+        use_numbers_choice = input("Include numbers (y/n): ").lower() == 'y'
+        use_special_chars_choice = input("Include special characters (y/n): ").lower() == 'y'
+        generated_password = generates_secure_password(
+            password_length, use_uppercase_choice,
+            use_lowercase_choice, use_numbers_choice, use_special_chars_choice)
+        if generated_password:
+            print("Generated Password:", generated_password)
+
+    elif choice == 'b':
+        numerator = float(input("Enter the numerator: "))
+        denominator = float(input("Enter the denominator: "))
+        decimal_points = int(input("Enter the number of decimal points: "))
+        format_percentage = calculate_percentage(numerator, denominator, decimal_points)
+        if format_percentage:
+            print("Formatted Percentage:", format_percentage)
+
+    elif choice == 'c':
+        days_remaining = days_until_july_4_2025()
+        print("Days until July 4, 2025:", days_remaining)
+
+    elif choice == 'd':
+        side_aa = float(input("Enter the length of side a: "))
+        side_bb = float(input("Enter the length of side b: "))
+        angle_cc_degrees = float(input("Enter the measure of angle C in degrees: "))
+        side_cc = calculate_triangle_leg(side_aa, side_bb, angle_cc_degrees)
+        print("Length of side c:", side_cc)
+
+    elif choice == 'e':
+        in_cylinder_radius = float(input("Enter the radius of the cylinder: "))
+        in_cylinder_height = float(input("Enter the height of the cylinder: "))
+        cylinder_volume = calculate_cylinder_volume(in_cylinder_radius, in_cylinder_height)
+        print("Volume of the cylinder:", cylinder_volume, "cubic units")
+
+    elif choice == 'f':
+        print("Thank you for visiting the application. Goodbye!")
+        break
+
+    else:
+        print("Invalid choice. Please select a valid option.")
