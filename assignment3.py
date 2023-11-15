@@ -2,6 +2,13 @@ import os
 import matplotlib.pyplot as plt
 from PIL import Image
 """
+Python program that:
+Has data for all 50 states in a dictionary
+Function to display all state data
+Function to search for a particular state
+Function to create a bar graph for top 5 populated states
+Function to update state population
+Main Menu that user interacts with
 
 """
 
