@@ -1,10 +1,9 @@
 import matplotlib.pyplot as plt
 from PIL import Image
 import os
-import numpy as np
 
 # Define all 50 states data in a dictionary
-states_data = {
+state_data = {
     "Alabama": {"Capital": "Montgomery", "Population": 196010, "Flower": "Camellia"},
     "Alaska": {"Capital": "Juneau", "Population": 31534, "Flower": "Forget-me-not"},
     "Arizona": {"Capital": "Phoenix", "Population": 1651344, "Flower": "Saguaro Cactus Blossom"},
@@ -57,15 +56,17 @@ states_data = {
     "Wyoming": {"Capital": "Cheyenne", "Population": 64831, "Flower": "Indian Paintbrush"},
 }
 
+
 def display_states():
     """
     Function to display all U.S. States
     """
     print("List of U.S. States in Alphabetical Order:")
-    for state in sorted(states_data.keys()):
-        state_info = states_data[state]
+    for state in sorted(state_data.keys()):
+        state_info = state_data[state]
         print(
-            f"State: {state}, Capital: {state_info['Capital']}, Population: {state_info['Population']}, Flower: {state_info['Flower']}")
+            f"State: {state}, Capital: {state_info['Capital']},"
+            f" Population: {state_info['Population']}, Flower: {state_info['Flower']}")
 
 
 def search_state(state_name):
@@ -88,6 +89,7 @@ def search_state(state_name):
     else:
         print(f"{state_name} not found in the list of U.S. states.")
 
+
 def create_population_bar_graph():
     """
     Function to create a bar graph of the top 5 populated states
@@ -102,19 +104,21 @@ def create_population_bar_graph():
     plt.title("Top 5 Populated States")
     plt.show()
 
-def update_population(state_name, new_population):
+
+def update_population(states_name, new_populations):
     """
     Function to update the population of a specific state
-    :param state_name:
-    :param new_population:
+    :param states_name:
+    :param new_populations:
     :return:
     """
-    state_name = state_name.capitalize()
-    if state_name in state_data:
-        state_data[state_name]["Population"] = new_population
-        print(f"Updated population of {state_name} to {new_population}.")
+    states_name = states_name.capitalize()
+    if states_name in state_data:
+        state_data[states_name]["Population"] = new_populations
+        print(f"Updated population of {states_name} to {new_populations}.")
     else:
-        print(f"{state_name} not found in the list of U.S. states.")
+        print(f"{states_name} not found in the list of U.S. states.")
+
 
 # Main menu
 while True:
@@ -125,21 +129,28 @@ while True:
     print("4. Update state population")
     print("5. Exit")
 
-    choice = input("Enter your choice: ")
+    choice = input("Enter your choice (1-5): ")
 
-    if choice == "1":
-        display_states()
-    elif choice == "2":
-        state_name = input("Enter the name of the state you want to search: ")
-        search_state(state_name)
-    elif choice == "3":
-        create_population_bar_graph()
-    elif choice == "4":
-        state_name = input("Enter the name of the state you want to update: ")
-        new_population = int(input("Enter the new population: "))
-        update_population(state_name, new_population)
-    elif choice == "5":
-        print("Goodbye!")
-        break
-    else:
-        print("Invalid choice. Please select a valid option.")
+    try:
+        choice = int(choice)
+        if choice == 1:
+            display_states()
+        elif choice == 2:
+            user_state_name = input("Enter the name of the state you want to search: ")
+            search_state(user_state_name)
+        elif choice == 3:
+            create_population_bar_graph()
+        elif choice == 4:
+            user_state_name = input("Enter the name of the state you want to update: ")
+            new_population = input("Enter the new population: ")
+            if new_population.isnumeric():
+                update_population(user_state_name, int(new_population))
+            else:
+                print("Invalid population. Please enter a numeric value.")
+        elif choice == 5:
+            print("Goodbye!")
+            break
+        else:
+            print("Invalid choice. Please select a valid option (1-5).")
+    except ValueError:
+        print("Invalid input. Please enter a valid numeric choice (1-5).")
