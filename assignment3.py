@@ -1,9 +1,12 @@
+import os
 import matplotlib.pyplot as plt
 from PIL import Image
-import os
+"""
+
+"""
 
 # Define all 50 states data in a dictionary
-state_data = {
+states_data = {
     "Alabama": {"Capital": "Montgomery", "Population": 196010, "Flower": "Camellia"},
     "Alaska": {"Capital": "Juneau", "Population": 31534, "Flower": "Forget-me-not"},
     "Arizona": {"Capital": "Phoenix", "Population": 1651344, "Flower": "Saguaro Cactus Blossom"},
@@ -26,7 +29,8 @@ state_data = {
     "Maryland": {"Capital": "Annapolis", "Population": 40397, "Flower": "Black-eyed Susan"},
     "Massachusetts": {"Capital": "Boston", "Population": 617459, "Flower": "Mayflower"},
     "Michigan": {"Capital": "Lansing", "Population": 112460, "Flower": "Apple Blossom"},
-    "Minnesota": {"Capital": "St. Paul", "Population": 299830, "Flower": "Pink and White Lady's Slipper"},
+    "Minnesota": {"Capital": "St. Paul",
+                  "Population": 299830, "Flower": "Pink and White Lady's Slipper"},
     "Mississippi": {"Capital": "Jackson", "Population": 143776, "Flower": "Magnolia"},
     "Missouri": {"Capital": "Jefferson City", "Population": 42535, "Flower": "Hawthorn"},
     "Montana": {"Capital": "Helena", "Population": 34690, "Flower": "Bitterroot"},
@@ -56,17 +60,15 @@ state_data = {
     "Wyoming": {"Capital": "Cheyenne", "Population": 64831, "Flower": "Indian Paintbrush"},
 }
 
-
 def display_states():
     """
-    Function to display all U.S. States
+    Function to display all U.S. States alphabetically
     """
     print("List of U.S. States in Alphabetical Order:")
-    for state in sorted(state_data.keys()):
-        state_info = state_data[state]
-        print(
-            f"State: {state}, Capital: {state_info['Capital']},"
-            f" Population: {state_info['Population']}, Flower: {state_info['Flower']}")
+    for state in sorted(states_data.keys()):
+        state_info = states_data[state]
+        print(f"State: {state}, Capital: {state_info['Capital']}, "
+              f"Population: {state_info['Population']}, Flower: {state_info['Flower']}")
 
 
 def search_state(state_name):
@@ -86,16 +88,17 @@ def search_state(state_name):
         if os.path.exists(flower_image_path):
             img = Image.open(flower_image_path)
             img.show()
+            img.close()
     else:
         print(f"{state_name} not found in the list of U.S. states.")
-
 
 def create_population_bar_graph():
     """
     Function to create a bar graph of the top 5 populated states
     :return:
     """
-    top_states = sorted(state_data.keys(), key=lambda x: state_data[x]["Population"], reverse=True)[:5]
+    top_states = sorted(state_data.keys(),
+                        key=lambda x: state_data[x]["Population"], reverse=True)[:5]
     population_data = [state_data[state]["Population"] for state in top_states]
     plt.figure(figsize=(10, 6))
     plt.bar(top_states, population_data)
@@ -104,21 +107,19 @@ def create_population_bar_graph():
     plt.title("Top 5 Populated States")
     plt.show()
 
-
-def update_population(states_name, new_populations):
+def update_population(state_name, new_population):
     """
     Function to update the population of a specific state
-    :param states_name:
-    :param new_populations:
+    :param state_name:
+    :param new_population:
     :return:
     """
-    states_name = states_name.capitalize()
-    if states_name in state_data:
-        state_data[states_name]["Population"] = new_populations
-        print(f"Updated population of {states_name} to {new_populations}.")
+    state_name = state_name.capitalize()
+    if state_name in state_data:
+        state_data[state_name]["Population"] = new_population
+        print(f"Updated population of {state_name} to {new_population}.")
     else:
-        print(f"{states_name} not found in the list of U.S. states.")
-
+        print(f"{state_name} not found in the list of U.S. states.")
 
 # Main menu
 while True:
@@ -136,15 +137,16 @@ while True:
         if choice == 1:
             display_states()
         elif choice == 2:
-            user_state_name = input("Enter the name of the state you want to search: ")
-            search_state(user_state_name)
+            state_to_search = input("Enter the name of the state you want to search: ")
+            search_state(state_to_search)
         elif choice == 3:
             create_population_bar_graph()
         elif choice == 4:
-            user_state_name = input("Enter the name of the state you want to update: ")
+            state_to_update = input(
+                "Enter the name of the state you want to update: ")
             new_population = input("Enter the new population: ")
             if new_population.isnumeric():
-                update_population(user_state_name, int(new_population))
+                update_population(state_to_update, int(new_population))
             else:
                 print("Invalid population. Please enter a numeric value.")
         elif choice == 5:
