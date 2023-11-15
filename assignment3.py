@@ -98,6 +98,8 @@ def search_state(state_name):
             img = Image.open(flower_image_path)
             img.show()
             img.close()
+        else:
+            print(f"No image found for the flower of {state_name}.")
     else:
         print(f"{state_name} not found in the list of U.S. states.")
 
