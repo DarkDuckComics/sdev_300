@@ -1,6 +1,3 @@
-import os
-import matplotlib.pyplot as plt
-from PIL import Image
 """
 Python program that:
 Has data for all 50 states in a dictionary
@@ -12,8 +9,13 @@ Main Menu that user interacts with
 
 """
 
+import os
+import matplotlib.pyplot as plt
+from PIL import Image
+
+
 # Define all 50 states data in a dictionary
-states_data = {
+state_data = {
     "Alabama": {"Capital": "Montgomery", "Population": 196010, "Flower": "Camellia"},
     "Alaska": {"Capital": "Juneau", "Population": 31534, "Flower": "Forget-me-not"},
     "Arizona": {"Capital": "Phoenix", "Population": 1651344, "Flower": "Saguaro Cactus Blossom"},
@@ -72,8 +74,8 @@ def display_states():
     Function to display all U.S. States alphabetically
     """
     print("List of U.S. States in Alphabetical Order:")
-    for state in sorted(states_data.keys()):
-        state_info = states_data[state]
+    for state in sorted(state_data.keys()):
+        state_info = state_data[state]
         print(f"State: {state}, Capital: {state_info['Capital']}, "
               f"Population: {state_info['Population']}, Flower: {state_info['Flower']}")
 
@@ -114,7 +116,7 @@ def create_population_bar_graph():
     plt.title("Top 5 Populated States")
     plt.show()
 
-def update_population(state_name, new_population):
+def update_population(state_name, updated_population):
     """
     Function to update the population of a specific state
     :param state_name:
@@ -124,7 +126,7 @@ def update_population(state_name, new_population):
     state_name = state_name.capitalize()
     if state_name in state_data:
         state_data[state_name]["Population"] = new_population
-        print(f"Updated population of {state_name} to {new_population}.")
+        print(f"Updated population of {state_name} to {updated_population}.")
     else:
         print(f"{state_name} not found in the list of U.S. states.")
 
