@@ -57,7 +57,7 @@ state_data = {
     "Pennsylvania": {"Capital": "Harrisburg", "Population": 50267, "Flower": "Mountain Laurel"},
     "Rhode Island": {"Capital": "Providence", "Population": 188877, "Flower": "Violet"},
     "South Carolina": {"Capital": "Columbia", "Population": 137996, "Flower": "Yellow Jessamine"},
-    "South Dakota": {"Capital": "Pierre", "Population": 13954, "Flower": "Pasque Flower"},
+    "South Dakota": {"Capital": "Pierre", "Population": 13954, "Flower": "Pasque"},
     "Tennessee": {"Capital": "Nashville", "Population": 658525, "Flower": "Iris"},
     "Texas": {"Capital": "Austin", "Population": 966292, "Flower": "Bluebonnet"},
     "Utah": {"Capital": "Salt Lake City", "Population": 202272, "Flower": "Sego Lily"},
@@ -68,6 +68,7 @@ state_data = {
     "Wisconsin": {"Capital": "Madison", "Population": 269897, "Flower": "Wood Violet"},
     "Wyoming": {"Capital": "Cheyenne", "Population": 64831, "Flower": "Indian Paintbrush"},
 }
+
 
 def display_states():
     """
@@ -99,9 +100,11 @@ def search_state(state_name):
             img.show()
             img.close()
         else:
+            print(flower_image_path)
             print(f"No image found for the flower of {state_name}.")
     else:
         print(f"{state_name} not found in the list of U.S. states.")
+
 
 def create_population_bar_graph():
     """
@@ -118,11 +121,12 @@ def create_population_bar_graph():
     plt.title("Top 5 Populated States")
     plt.show()
 
+
 def update_population(state_name, updated_population):
     """
     Function to update the population of a specific state
     :param state_name:
-    :param new_population:
+    :param updated_population:
     :return:
     """
     state_name = state_name.capitalize()
@@ -131,6 +135,7 @@ def update_population(state_name, updated_population):
         print(f"Updated population of {state_name} to {updated_population}.")
     else:
         print(f"{state_name} not found in the list of U.S. states.")
+
 
 # Main menu
 while True:
