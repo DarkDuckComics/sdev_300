@@ -81,29 +81,28 @@ def display_states():
               f"Population: {state_info['Population']}, Flower: {state_info['Flower']}")
 
 
-def search_state(state_name):
-    """
-    Function to search for a specific state
-    :param state_name:
-    :return:
-    """
-    state_name = state_name.capitalize()
-    if state_name in state_data:
-        state_info = state_data[state_name]
+def search_state(state_name, state_data):
+    # Capitalize the first letter of each word in the state name
+    state_name_formatted = state_name.title()
+
+    if state_name_formatted in state_data:
+        state_info = state_data[state_name_formatted]
         capital = state_info["Capital"]
         population = state_info["Population"]
         flower = state_info["Flower"]
-        print(f"{state_name} - Capital: {capital}, Population: {population}, Flower: {flower}")
-        flower_image_path = f"images/{state_name}_flower.jpg"
+        print(f"{state_name_formatted} - Capital: {capital}, Population: {population}, Flower: {flower}")
+
+        # Use the formatted state name for the image file
+        flower_image_path = os.path.join("images", f"{state_name_formatted.replace(' ', '_')}_flower.jpg")
+
         if os.path.exists(flower_image_path):
             img = Image.open(flower_image_path)
             img.show()
             img.close()
         else:
-            print(flower_image_path)
-            print(f"No image found for the flower of {state_name}.")
+            print(f"No image found for the flower of {state_name_formatted}.")
     else:
-        print(f"{state_name} not found in the list of U.S. states.")
+        print(f"{state_name_formatted} not found in the list of U.S. states.")
 
 
 def create_population_bar_graph():
@@ -154,7 +153,7 @@ while True:
             display_states()
         elif choice == 2:
             state_to_search = input("Enter the name of the state you want to search: ")
-            search_state(state_to_search)
+            search_state(state_to_search, state_data)
         elif choice == 3:
             create_population_bar_graph()
         elif choice == 4:
