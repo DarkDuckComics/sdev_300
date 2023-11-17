@@ -81,7 +81,11 @@ def display_states():
               f"Population: {state_info['Population']}, Flower: {state_info['Flower']}")
 
 
-def search_state(state_name, state_data):
+def search_state(state_name):
+    """
+    Function to search for a specific state
+    Prints state data and displays state flower
+    """
     # Capitalize the first letter of each word in the state name
     state_name_formatted = state_name.title()
 
@@ -90,10 +94,13 @@ def search_state(state_name, state_data):
         capital = state_info["Capital"]
         population = state_info["Population"]
         flower = state_info["Flower"]
-        print(f"{state_name_formatted} - Capital: {capital}, Population: {population}, Flower: {flower}")
+        print(f"State: {state_name_formatted}, Capital: {capital}, "
+              f"Population: {population}, Flower: {flower}")
 
         # Use the formatted state name for the image file
-        flower_image_path = os.path.join("images", f"{state_name_formatted.replace(' ', '_')}_flower.jpg")
+        formatted_state_name = state_name_formatted.replace(' ', '_')
+        flower_image_path = os.path.join("/home/student/images",
+                                         f"{formatted_state_name}_flower.jpg")
 
         if os.path.exists(flower_image_path):
             img = Image.open(flower_image_path)
@@ -103,6 +110,7 @@ def search_state(state_name, state_data):
             print(f"No image found for the flower of {state_name_formatted}.")
     else:
         print(f"{state_name_formatted} not found in the list of U.S. states.")
+
 
 
 def create_population_bar_graph():
@@ -130,7 +138,7 @@ def update_population(state_name, updated_population):
     """
     state_name = state_name.capitalize()
     if state_name in state_data:
-        state_data[state_name]["Population"] = new_population
+        state_data[state_name]["Population"] = updated_population
         print(f"Updated population of {state_name} to {updated_population}.")
     else:
         print(f"{state_name} not found in the list of U.S. states.")
@@ -153,12 +161,11 @@ while True:
             display_states()
         elif choice == 2:
             state_to_search = input("Enter the name of the state you want to search: ")
-            search_state(state_to_search, state_data)
+            search_state(state_to_search)
         elif choice == 3:
             create_population_bar_graph()
         elif choice == 4:
-            state_to_update = input(
-                "Enter the name of the state you want to update: ")
+            state_to_update = input("Enter the name of the state you want to update: ")
             new_population = input("Enter the new population: ")
             if new_population.isnumeric():
                 update_population(state_to_update, int(new_population))
