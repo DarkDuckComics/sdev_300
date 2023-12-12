@@ -2,40 +2,28 @@ import hashlib
 
 
 def hash_password(password):
-    # Hash the password using MD5, SHA-256, and SHA-512
-    md5_hash = hashlib.md5(password.encode()).hexdigest()
-    sha256_hash = hashlib.sha256(password.encode()).hexdigest()
-    sha512_hash = hashlib.sha512(password.encode()).hexdigest()
+    # Encode the password to bytes using UTF-8 encoding
+    password_bytes = password.encode()
+
+    # Hash with MD5, SHA-256, and SHA-512
+    md5_hash = hashlib.md5(password_bytes).hexdigest()
+    sha256_hash = hashlib.sha256(password_bytes).hexdigest()
+    sha512_hash = hashlib.sha512(password_bytes).hexdigest()
+
     return md5_hash, sha256_hash, sha512_hash
 
 
-def main_password_cracking_activity():
-    # List of passwords for testing
-    passwords = ["password01", "hello05", "strongP@ssword", "mySecureP@ss"]
+def password_cracking_activity():
+    # Experiment with password hashing and cracking
+    print("Enter a password to encode:")
+    user_password = input()
 
-    print("Table 1. Password Cracking Activity Results")
-    print("Password\t\tMD5 Hash\t\t\tSHA-256 Hash\t\t\tSHA-512 Hash\t\t\tDid Crackstation work?")
+    md5_hash, sha256_hash, sha512_hash = hash_password(user_password)
 
-    for password in passwords:
-        md5_hash, sha256_hash, sha512_hash = hash_password(password)
-
-        print(
-            f"{password}\t\t{md5_hash}\t{sha256_hash}\t{sha512_hash}\t{check_crackstation(md5_hash, sha256_hash, sha512_hash)}")
-
-
-def check_crackstation(*hashes):
-    # You can implement a function to check if the hashes are cracked using an online service
-    # For simplicity, you can return "Yes" if any of the hashes are cracked, else "No"
-    # Implement this based on your preferred approach or external service.
-    return "Yes" if any(crack_hash(hash) for hash in hashes) else "No"
-
-
-def crack_hash(hash):
-    # Implement logic to check if the hash is cracked using an online service
-    # For simplicity, this function returns True if the hash is cracked, else False
-    # Implement this based on your preferred approach or external service.
-    return False
+    print(f"MD5 Hash: {md5_hash}")
+    print(f"SHA-256 Hash: {sha256_hash}")
+    print(f"SHA-512 Hash: {sha512_hash}")
 
 
 if __name__ == "__main__":
-    main_password_cracking_activity()
+    password_cracking_activity()
