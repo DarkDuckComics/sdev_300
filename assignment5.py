@@ -1,10 +1,19 @@
+"""
+Program to accept csv files
+plots the data on a graph
+user can choose from predefined dates
+provided for population
+or change the population
+ALso allows the user to choose
+"""
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 
 
-# Function to load data from a CSV file
 def load_data(file_path):
+    """
+    Function to load data from a CSV file
+    """
     try:
         data = pd.read_csv(file_path)
         return data
@@ -13,8 +22,11 @@ def load_data(file_path):
         return None
 
 
-# Function to analyze data and generate statistics and histograms
 def analyze_data(data, column_name, color='blue'):
+    """
+    Function to analyze data
+    also generate statistics and histograms
+    """
     if column_name not in data.columns:
         print("Invalid column name. Please select a valid column.")
         return
@@ -41,6 +53,9 @@ def analyze_data(data, column_name, color='blue'):
 
 
 def select_column(data, columns):
+    """
+    Function to select a column for analysis
+    """
     while True:
         print("Select the Column you want to analyze:")
         for idx, column in enumerate(columns):
@@ -53,7 +68,7 @@ def select_column(data, columns):
         if column_choice == chr(ord('a') + len(columns)):
             print("You selected to exit the column menu")
             break
-        elif column_choice in [chr(ord('a') + i) for i in range(len(columns))]:
+        if column_choice in [chr(ord('a') + i) for i in range(len(columns))]:
             selected_column = columns[ord(column_choice) - ord('a')]
             analyze_data(data, selected_column)
         else:
@@ -61,6 +76,12 @@ def select_column(data, columns):
 
 
 def main():
+    """
+    main program
+    user can intereact with
+    and manipulate data
+    from csv files
+    """
     print("***************** Welcome to the Python Data Analysis App**********")
 
     while True:
@@ -95,7 +116,7 @@ def main():
                     else:
                         print("Invalid choice. Please enter a valid option.")
         elif choice == '2':
-            housing_data_path = r"C:\Users\xXste\Downloads\Housing.csv"  # Path to local file
+            housing_data_path = r"C:\Users\xXste\Downloads\Housing.csv"
             housing_data = load_data(housing_data_path)
 
             if housing_data is not None:
