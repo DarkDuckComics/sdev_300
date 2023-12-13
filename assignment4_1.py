@@ -1,6 +1,11 @@
+"""
+Program to capture user phone number and zipcode
+Then asks for user to provide numbers for two 3 x 3 mtrices
+Then the user will choose how the matrices will be computed
+"""
+import re
 import numpy as np
 import pandas as pd
-import re
 
 
 def get_phone_number():
@@ -10,12 +15,11 @@ def get_phone_number():
             phone_number = input("Enter your phone number (XXX-XXX-XXXX): ")
             if re.match(r'\d{3}-\d{3}-\d{4}', phone_number):
                 return phone_number
-            else:
-                raise ValueError("Invalid phone number format. Please use the format XXX-XXX-XXXX.")
-        except ValueError as e:
-            print(e)
-
-
+            raise ValueError(
+                "Invalid phone number format. Please use the format XXX-XXX-XXXX.")
+        except ValueError as error:
+            print(error)
+        break
 def get_zip_code():
     """Prompt the user to enter a valid zip code."""
     while True:
@@ -23,11 +27,11 @@ def get_zip_code():
             zip_code = input("Enter your zip code+4 (XXXXX-XXXX): ")
             if re.match(r'\d{5}-\d{4}', zip_code):
                 return zip_code
-            else:
-                raise ValueError("Invalid zip code format. Please use the format XXXXX-XXXX.")
-        except ValueError as e:
-            print(e)
-
+            raise ValueError(
+                "Invalid zip code format. Please use the format XXXXX-XXXX.")
+        except ValueError as error:
+            print(error)
+        break
 
 def get_matrix(prompt):
     """Prompt the user to enter a 3x3 matrix."""
@@ -40,7 +44,8 @@ def get_matrix(prompt):
         # Loop through each row
         for row_num in range(3):
             # Prompt the user to enter elements for each row
-            row = input(f"Row {row_num + 1}: Enter elements separated by spaces: ")
+            row = input(
+                f"Row {row_num + 1}: Enter elements separated by spaces: ")
 
             # Convert the entered values to float and append to the matrix
             matrix_values.append(list(map(float, row.split())))
@@ -51,11 +56,11 @@ def get_matrix(prompt):
         # Check if the matrix is 3x3
         if matrix.shape == (3, 3):
             return pd.DataFrame(matrix)
-        else:
-            raise ValueError("Invalid matrix size. Please enter a valid 3x3 matrix.")
-    except ValueError as e:
-        # Handle exceptions and print error
-        print(e)
+        raise ValueError(
+            "Invalid matrix size. Please enter a valid 3x3 matrix.")
+    # Handle exceptions and print error
+    except ValueError as error:
+        print(error)
 
 
 def matrix_operations(matrix_a, matrix_b, operation):
@@ -74,12 +79,14 @@ def matrix_operations(matrix_a, matrix_b, operation):
             # Element-wise Matrix Multiplication
             result = np.multiply(matrix_a, matrix_b)
         else:
-            raise ValueError("Invalid operation selected. Please choose a valid operation (a, b, c, or d).")
+            raise ValueError(
+                "Invalid operation selected. Please choose a valid operation (a, b, c, or d).")
 
         # Return the result, transpose, row mean, and column mean
         return result, result.T, np.mean(result, axis=1), np.mean(result, axis=0)
-    except ValueError as e:
-        print(e)
+    # Handle exceptions and print error
+    except ValueError as error:
+        print(error)
 
 
 def display_results(phone_number, zip_code, results, transpose, row_mean, col_mean):
@@ -103,7 +110,8 @@ def main():
     print("***************** Welcome to the Python Matrix Application ***********")
 
     while True:
-        play_game = input("Do you want to play the Matrix Game? Enter Y for Yes or N for No: ")
+        play_game = input(
+            "Do you want to play the Matrix Game? Enter Y for Yes or N for No: ")
         if play_game.lower() != 'y':
             print("*********** Thanks for playing Python Numpy ***************")
             break
@@ -112,11 +120,13 @@ def main():
             phone_number = get_phone_number()
             zip_code = get_zip_code()
 
-            matrix_a = get_matrix("Enter your first 3x3 matrix element by element")
+            matrix_a = get_matrix(
+                "Enter your first 3x3 matrix element by element")
             print("Your first 3x3 matrix is:")
             print(matrix_a)
 
-            matrix_b = get_matrix("Enter your second 3x3 matrix element by element")
+            matrix_b = get_matrix(
+                "Enter your second 3x3 matrix element by element")
             print("Your second 3x3 matrix is:")
             print(matrix_b)
 
@@ -124,11 +134,15 @@ def main():
                               "a. Addition\nb. Subtraction\nc. Matrix Multiplication\n"
                               "d. Element by element multiplication\n")
 
-            results, transpose, row_mean, col_mean = matrix_operations(matrix_a, matrix_b, operation)
-            display_results(phone_number, zip_code, results, transpose, row_mean, col_mean)
+            results, transpose, row_mean, col_mean = matrix_operations(
+                matrix_a, matrix_b, operation)
+            display_results(phone_number, zip_code, results,
+                            transpose, row_mean, col_mean)
 
-        except Exception as e:
-            print(f"An error occurred: {e}")
+        except ValueError as value_error:
+            print(f"ValueError: {value_error}")
+        except TypeError as type_error:
+            print(f"TypeError: {type_error}")
 
 
 if __name__ == "__main__":
