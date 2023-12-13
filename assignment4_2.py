@@ -1,7 +1,17 @@
+"""
+Program for password hashing to be used on the password cracking website
+"""
 import hashlib
 
 
 def hash_password(password):
+    """
+    Takes the password the user entered
+    then encodes it and hashes with:
+    MD5
+    SHA-256
+    SHA-512
+    """
     # Encode the password to bytes using UTF-8 encoding
     password_bytes = password.encode()
 
@@ -14,7 +24,13 @@ def hash_password(password):
 
 
 def password_cracking_activity():
-    # Experiment with password hashing and cracking
+    """
+    function to ask user for password to encode
+    Then prints the encoded password in:
+    MD5
+    SHA-256
+    SHA-512
+    """
     print("Enter a password to encode:")
     user_password = input()
 
