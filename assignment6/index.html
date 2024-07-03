@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <title>Dark Duck Comics</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+     <div class="navbar">
+        {% if 'username' in session %}
+        <a href="/logout">Logout</a>
+        {% else %}
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+        {% endif %}
+    </div>
+<!-- Business logo-->
+    <img src="{{ url_for('static', filename='Duck Logo.png') }}" alt="Dark Duck Comics Logo" style="width:150px;height:auto;">
+    <h1>Welcome to Dark Duck Comics</h1>
+    <h2>Your one-stop shop for comic books</h2>
+    <p>Current Date and Time: {{ current_time }}</p>
+    <h3>Latest News</h3>
+    <p>Here is the latest update: Attended Heroes Con 2024</p>
+    <ul>
+        <li>Marvel Super Heroes Secret Wars 1-12: signed by Jim Shooter and John Beatty</li>
+        <li>The Uncanny Xmen 117 and 244 signed by Chris Clermont</li>
+    </ul>
+    <table>
+        <tr>
+            <th></th>
+            <th>Comic Name</th>
+            <th>Grade</th>
+            <th>Signed By</th>
+            <th>Price</th>
+        </tr>
+         <tr>
+            <td><img src="{{ url_for('static', filename='Ultimate Comics Spider-Man #5.png') }}" alt="Ultimate Comics Spider-Man #5" style="width:100px;height:auto;"></td>
+            <td>Ultimate Comics Spider-Man #5</td>
+            <td>9.4</td>
+            <td>Shameik Moore & Nadji Jeter</td>
+            <td>Price 1</td>
+        </tr>
+        <tr>
+            <td><img src="{{ url_for('static', filename='Miles Morales Spider-Man #3.png') }}" alt="Miles Morales Spider-Man #3" style="width:100px;height:auto;"></td>
+            <td>Miles Morales Spider-Man #3</td>
+            <td>9.8</td>
+            <td>Shameik Moore & Nadji Jeter</td>
+            <td>Price 2</td>
+        </tr>
+        <tr>
+            <td><img src="{{ url_for('static', filename='Spider-Man #12.png') }}" alt="Spider-Man #12" style="width:100px;height:auto;"></td>
+            <td>Spider-Man #12</td>
+            <td>9.2</td>
+            <td>Shameik Moore</td>
+            <td>Price 3</td>
+        </tr>
+        <tr>
+            <td><img src="{{ url_for('static', filename='Uncanny X-Men #244.png') }}" alt="Uncanny X-Men #244" style="width:100px;height:auto;"></td>
+            <td>Uncanny X-Men #244</td>
+            <td>7.5</td>
+            <td>Chris Claremont</td>
+            <td>Price 4</td>
+        </tr>
+    </table>
+    <!-- Active links to my websites-->
+    <p>Connect with us on social media:</p>
+    <a href="https://www.facebook.com/DarkDuckComics" target="_blank">Facebook</a>
+    <a href="https://www.instagram.com/darkduckcomics/" target="_blank">Instagram</a>
+    <a href="https://www.darkduckcomics.com" target="_blank">Dark Duck Comics website</a>
+    <p>Visit other pages:</p>
+    <a href="/about">About Us</a>
+    <a href="/contact">Contact</a>
+</body>
+</html>
